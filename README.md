@@ -23,11 +23,11 @@ AISTM complements existing guidance such as the OWASP LLM Top 10, NIST AI RMF, a
 
 ```mermaid
 flowchart TD
-    L1[Layer 1: Discovery & Scoping]
-    L2[Layer 2: Input Validation & Intent Controls]
-    L3[Layer 3: AI Processing & Prompt Security]
-    L4[Layer 4: Output Validation & Processing]
-    L5[Layer 5: Backend & Execution Security]
+    L1["Layer 1: Discovery & Scoping"]
+    L2["Layer 2: Input Validation & Intent Controls"]
+    L3["Layer 3: AI Processing & Prompt Security"]
+    L4["Layer 4: Output Validation & Processing"]
+    L5["Layer 5: Backend & Execution Security"]
 
     L1 --> L2 --> L3 --> L4 --> L5
 ```
@@ -41,15 +41,15 @@ You test each layer in order, but findings in one layer do not remove the need t
 
 ```mermaid
 flowchart TD
-    A[Start AISTM Assessment] --> B[Layer 1: Discovery & Scoping]
-    B --> C[Layer 2: Input Validation & Intent Controls]
-    C --> D[Layer 3: AI Processing & Prompt Security]
-    D --> E[Layer 4: Output Validation & Processing]
-    E --> F[Layer 5: Backend & Execution Security]
+    A["Start AISTM Assessment"] --> B["Layer 1: Discovery & Scoping"]
+    B --> C["Layer 2: Input Validation & Intent Controls"]
+    C --> D["Layer 3: AI Processing & Prompt Security"]
+    D --> E["Layer 4: Output Validation & Processing"]
+    E --> F["Layer 5: Backend & Execution Security"]
 
-    F --> G{Residual Risk Acceptable?}
-    G -->|Yes| H[Document Findings & Recommendations]
-    G -->|No| I[Improve Controls & Re-Test]
+    F --> G{"Residual Risk Acceptable?"}
+    G -->|Yes| H["Document Findings & Recommendations"]
+    G -->|No| I["Improve Controls & Re-Test"]
     I --> B
 ```
 
