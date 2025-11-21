@@ -5,7 +5,7 @@
 
 ## Overview
 
-AISTM (AI Security Testing Model) is a structured, five-layer methodology for evaluating the security of applications that integrate Large Language Models (LLMs) or other AI components. It recognizes that AI introduces inherent uncertainty and new classes of attack vectors and provides a practical, engineering-focused approach to testing the systems around the AI—not just the model itself.
+AISTM (AI Security Testing Model) is a structured, five-layer methodology for evaluating the security of applications that integrate Large Language Models (LLMs) or other AI components. It recognizes that AI introduces inherent uncertainty and new classes of attack vectors and provides a practical, engineering-focused approach to testing the systems around the AI not just the model itself.
 
 Rather than assuming guaranteed AI failure, AISTM prepares systems to remain secure even when AI output is unexpected, adversarial, or ambiguous. This is achieved through sequential but independent testing across five defensible layers:
 
