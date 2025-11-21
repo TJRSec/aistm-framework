@@ -1,0 +1,14 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Python / tooling caches
+__pycache__/
+*.py[cod]
+*.pyo
+
+# IDE metadata
+.vscode/
+.idea/

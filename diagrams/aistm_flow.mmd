@@ -1,0 +1,13 @@
+```mermaid
+flowchart TD
+    A[Start AISTM Assessment] --> B[Layer 1: Discovery & Scoping]
+    B --> C[Layer 2: Input Validation & Intent Controls]
+    C --> D[Layer 3: AI Processing & Prompt Security]
+    D --> E[Layer 4: Output Validation & Processing]
+    E --> F[Layer 5: Backend & Execution Security]
+
+    F --> G{Residual Risk Acceptable?}
+    G -->|Yes| H[Document Findings & Recommendations]
+    G -->|No| I[Improve Controls & Re-Test]
+    I --> B
+```
