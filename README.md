@@ -65,10 +65,12 @@ Practitioner-oriented guide for assessors and AppSec teams.
 High-level field guide for red teams and AI assessors.
 
 📊 **Diagrams**  
-Mermaid diagram source files (for reference or external rendering):
+Mermaid diagrams (viewable on GitHub):
 
-- [aistm_layers.mmd](diagrams/aistm_layers.mmd) — Layer model diagram  
-- [aistm_flow.mmd](diagrams/aistm_flow.mmd) — Assessment flow diagram
+- [aistm_layers.md](diagrams/aistm_layers.md) — Layer model diagram  
+- [aistm_flow.md](diagrams/aistm_flow.md) — Assessment flow diagram
+
+Source files (`.mmd`) are also available in the `diagrams/` directory for external rendering tools.
 
 ---
 
