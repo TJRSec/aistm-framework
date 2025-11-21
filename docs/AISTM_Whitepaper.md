@@ -8,9 +8,9 @@
 
 AI-enabled applications introduce capabilities and risks unlike traditional software systems. Conventional application security relies on deterministic behavior: user input follows predictable code paths and produces consistent results. Generative AI systems break this model. Large Language Models (LLMs) and similar components generate outputs based on probability, latent context, and free-form natural language instructions. The same input may produce different outputs depending on history, phrasing, and external cues.
 
-This variability does not mean AI systems are unreliable. Rather, it reflects a shift in how such systems must be evaluated. Certain AI-specific risks—such as prompt injection, reasoning manipulation, context interference, and emergent behaviors—cannot currently be mitigated purely at the model layer. Effective security requires designing applications to remain robust even when AI behavior deviates from expectations.
+This variability does not mean AI systems are unreliable. Rather, it reflects a shift in how such systems must be evaluated. Certain AI-specific risks,such as prompt injection, reasoning manipulation, context interference, and emergent behaviors, cannot currently be mitigated purely at the model layer. Effective security requires designing applications to remain robust even when AI behavior deviates from expectations.
 
-AISTM (AI Security Testing Model) provides a practical, structured methodology for assessing AI-enabled applications across the full system lifecycle. It focuses on **resilience**, ensuring that each component surrounding the AI layer—inputs, controls, validation logic, and backend systems—remains secure even under ambiguous, adversarial, or unexpected AI behaviors. The methodology reflects real-world data flow: input enters the system, reaches the AI, generates output, and may influence backend actions.
+AISTM (AI Security Testing Model) provides a practical, structured methodology for assessing AI-enabled applications across the full system lifecycle. It focuses on **resilience**, ensuring that each component surrounding the AI layer inputs, controls, validation logic, and backend systems—remains secure even under ambiguous, adversarial, or unexpected AI behaviors. The methodology reflects real-world data flow: input enters the system, reaches the AI, generates output, and may influence backend actions.
 
 AISTM does not focus solely on the AI model; instead, it evaluates the entire ecosystem that integrates and relies on AI processing. This holistic perspective aligns naturally with existing risk frameworks while providing a concrete operational testing sequence used during application assessment.
 
@@ -26,7 +26,7 @@ Generative AI systems exhibit variability due to probabilistic inference and con
 
 ### 2. AI output is never a security boundary
 
-Model responses—whether accurate, malformed, or adversarially influenced—must be evaluated and sanitized before affecting application logic. The AI layer should be viewed as an untrusted input source within the broader system.
+Model responses whether accurate, malformed, or adversarially influenced—must be evaluated and sanitized before affecting application logic. The AI layer should be viewed as an untrusted input source within the broader system.
 
 ### 3. Defense-in-depth is essential
 
@@ -169,7 +169,7 @@ A system evaluated using AISTM demonstrates:
 - Robust validation of model outputs prior to execution  
 - Backend security independent of AI correctness  
 
-AISTM emphasizes **resilience over perfection**—ensuring that the system maintains integrity even when model behavior is unpredictable or influenced by malicious inputs.
+AISTM emphasizes **resilience over perfection** ensuring that the system maintains integrity even when model behavior is unpredictable or influenced by malicious inputs.
 
 ---
 
