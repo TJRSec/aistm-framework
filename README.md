@@ -70,8 +70,6 @@ Mermaid diagrams (viewable on GitHub):
 - [aistm_layers.md](diagrams/aistm_layers.md) — Layer model diagram  
 - [aistm_flow.md](diagrams/aistm_flow.md) — Assessment flow diagram
 
-Source files (`.mmd`) are also available in the `diagrams/` directory for external rendering tools.
-
 ---
 
 ## Relationship to Existing Work
