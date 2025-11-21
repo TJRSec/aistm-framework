@@ -37,6 +37,22 @@ Each layer serves as an independent security boundary designed to contain unpred
 AISTM follows a **sequential but independent** testing approach:  
 You test each layer in order, but findings in one layer do not remove the need to test the others.
 
+### Assessment Flow
+
+```mermaid
+flowchart TD
+    A[Start AISTM Assessment] --> B[Layer 1: Discovery & Scoping]
+    B --> C[Layer 2: Input Validation & Intent Controls]
+    C --> D[Layer 3: AI Processing & Prompt Security]
+    D --> E[Layer 4: Output Validation & Processing]
+    E --> F[Layer 5: Backend & Execution Security]
+
+    F --> G{Residual Risk Acceptable?}
+    G -->|Yes| H[Document Findings & Recommendations]
+    G -->|No| I[Improve Controls & Re-Test]
+    I --> B
+```
+
 ---
 
 ## Documentation
@@ -51,10 +67,10 @@ Practitioner-oriented guide for assessors and AppSec teams.
 High-level field guide for red teams and AI assessors.
 
 📊 **Diagrams**  
-Mermaid diagrams illustrating the layered model and assessment flow:
+Mermaid diagram source files (for reference or external rendering):
 
-- [aistm_layers.mmd](diagrams/aistm_layers.mmd)  
-- [aistm_flow.mmd](diagrams/aistm_flow.mmd)
+- [aistm_layers.mmd](diagrams/aistm_layers.mmd) — Layer model diagram  
+- [aistm_flow.mmd](diagrams/aistm_flow.mmd) — Assessment flow diagram
 
 ---
 
