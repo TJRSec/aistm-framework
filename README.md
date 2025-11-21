@@ -41,20 +41,20 @@ You test each layer in order, but findings in one layer do not remove the need t
 
 ## Documentation
 
-📄 **Whitepaper**  
-`docs/AISTM_Whitepaper.md` — Full explanation of the model, principles, and testing approach.
+📄 **[Whitepaper](docs/AISTM_Whitepaper.md)**  
+Full explanation of the model, principles, and testing approach.
 
-📘 **Internal Testing Guide**  
-`docs/AISTM_Internal_Guide.md` — Practitioner-oriented guide for assessors and AppSec teams.
+📘 **[Internal Testing Guide](docs/AISTM_Internal_Guide.md)**  
+Practitioner-oriented guide for assessors and AppSec teams.
 
-⚡ **Quick Guide**  
-`docs/AISTM_Quick_Guide.md` — High-level field guide for red teams and AI assessors.
+⚡ **[Quick Guide](docs/AISTM_Quick_Guide.md)**  
+High-level field guide for red teams and AI assessors.
 
 📊 **Diagrams**  
-`diagrams/` — Mermaid diagrams illustrating the layered model and assessment flow:
+Mermaid diagrams illustrating the layered model and assessment flow:
 
-- `aistm_layers.mmd`  
-- `aistm_flow.mmd`
+- [aistm_layers.mmd](diagrams/aistm_layers.mmd)  
+- [aistm_flow.mmd](diagrams/aistm_flow.mmd)
 
 ---
 
@@ -84,7 +84,7 @@ These efforts define risks, controls, and attack patterns. AISTM defines a **lay
 
 ## License
 
-This project is licensed under the **MIT License**. See `LICENSE` for details.
+This project is licensed under the **MIT License**. See [LICENSE](LICENSE) for details.
 
 ---
 
