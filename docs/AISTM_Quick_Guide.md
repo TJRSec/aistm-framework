@@ -1,202 +1,280 @@
----
-title: "AISTM Quick Guide"
-author: "Todd Rose"
-version: "1.0"
-last_updated: "2025-11-21"
-license: "MIT"
+# AISTM Quick Guide
+
+## AI Security Testing Model — Field Reference
+
 ---
 
-# AISTM: AI Security Testing Model  
-### *A Defense-in-Depth Methodology for Red Teaming AI-Enabled Applications*
+> **"Stay paranoid. Test everything. Trust nothing—especially the AI."**
 
-## **The Fundamental Shift**
+---
 
-Traditional security testing assumes systems behave deterministically:  
-**input A → output B**, every time.
-
-AI breaks that assumption.
-
-Large Language Models (LLMs) such as GPT-4, Claude, and Llama are **non-deterministic**. The same input may produce different outputs based on:
-
-- conversation history  
-- context length  
-- reasoning variance  
-- internal temperature  
-- probabilistic sampling  
-
-This creates an entirely new category of attack surfaces.
-
-### **Practical Realities**
-
-- **Prompt injection cannot be fully prevented**  
-- **AI behavior cannot be perfectly predicted**  
-- **Given enough attempts or randomness, the AI will eventually misbehave**
-
-### **Therefore:**
-
-> **You must design and test under the assumption that—at some point—the AI will go rogue.**
-
-The purpose of AISTM is to evaluate whether the *rest of the system* can survive that moment.
-
-# **The AISTM 5-Layer Assessment Model**
+## Framework at a Glance
 
 ```
-┌─────────────────────────────────────┐
-│   Layer 1: Discovery & Scoping      │
-├─────────────────────────────────────┤
-│   Layer 2: Input Validation         │
-├─────────────────────────────────────┤
-│   Layer 3: AI Processing            │
-├─────────────────────────────────────┤
-│   Layer 4: Output Validation        │
-├─────────────────────────────────────┤
-│   Layer 5: Backend Security         │
-└─────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│                       RECON PHASE                           │
+│  Stakeholders → Data Flow → Input Vectors → Function → Artifacts │
+└─────────────────────────────────────────────────────────────┘
+                              ↓
+┌─────────────────────────────────────────────────────────────┐
+│                      TESTING PHASE                          │
+│  Layer 1 → Layer 2 → Layer 3 → Layer 4                      │
+│  (Input)   (AI)      (Output)  (Backend)                    │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-Each layer is tested sequentially but evaluated independently.
+---
 
-# **Layer 1: Discovery & Scoping**
+## Core Philosophy
 
-### **Core Question**  
-**“What exactly am I testing, and where can it break?”**
+- **Assume AI compromise is inevitable**
+- **Validate defense-in-depth** — Test each layer independently
+- **Each layer is a question** — Assess applicability first
+- **Findings are valid despite non-determinism**
 
-### **Mindset**  
-Treat this as reconnaissance designed for AI systems. You cannot secure what you do not understand.
+---
 
-### **Look For**  
-- AI model(s) and services used  
-- All input sources that feed the AI  
-- All systems the AI can influence  
-- Function calling, tools, plugins, RAG pipelines  
-- Hidden prompts, system messages, and developer instructions  
-- Trust boundaries  
-- The absolute worst-case scenario if the AI behaves maliciously
+## Recon Phase Checklist
 
-### **Critical Insight**  
-**Every connection to the AI is an attack vector—map them all.**
+### ☐ Stakeholder Alignment
+- [ ] Explain AISTM methodology
+- [ ] Set expectations on non-determinism
+- [ ] Define scope and rules of engagement
+- [ ] Obtain access and credentials
 
-# **Layer 2: Input Validation & Intent Controls**
+### ☐ Data Flow Mapping
+- [ ] Input → AI → Output → Backend → Data stores
+- [ ] Identify all systems AI interacts with
+- [ ] Document feedback loops and memory
 
-### **Core Question**  
-**“Can malicious or manipulated input reach the AI at all?”**
+### ☐ Input Vector Inventory
+- [ ] Direct: Chat, API, file upload, voice
+- [ ] Indirect: RAG docs, tool responses, training data
 
-### **Mindset**  
-Traditional input validation still matters—but now the attacker is trying to reach *your AI*, not just your backend.
+### ☐ Functional Understanding
+- [ ] What should the AI do?
+- [ ] What shouldn't it do?
+- [ ] What data/actions can it access?
 
-### **Test**  
-- Input length, format, and type enforcement  
-- Encoding/obfuscation bypasses  
-- Prompt injection attempts  
-- Manipulation of conversation history or memory  
-- File upload and multimodal input validation  
-- Rate limiting and exhaustion  
-- Attempts to modify or leak system prompts
+### ☐ Artifact Collection
+- [ ] Source code
+- [ ] System prompts
+- [ ] Model info
+- [ ] Architecture docs
+- [ ] API specs
 
-### **Critical Insight**  
-**Treat this layer as compromised, because eventually it will be.**
+---
 
-# **Layer 3: AI Processing & Prompt Security**
+## Testing Phase Quick Reference
 
-### **Core Question**  
-**“Once input reaches the AI, can I manipulate its behavior?”**
-
-### **Mindset**  
-Think like a social engineer—but the target is an LLM with high competence and no intuition.
-
-### **Test**  
-- Jailbreaks and instruction overrides  
-- Prevention bypasses  
-- Attempts to elicit sensitive internal data  
-- Forcing unexpected tool/function calls  
-- Red-teaming the AI’s reasoning process  
-- Resource exhaustion and token overflow  
-- Structured output manipulation attacks
-
-### **Critical Insight**  
-**AI is not deterministic. Test variations, patterns, and probabilities—not just single attempts.**
-
-# **Layer 4: Output Validation & Processing**
-
-### **Core Question**  
-**“If the AI generates harmful output, what prevents damage?”**
-
-### **Mindset**  
-Assume you have full control over the AI. Now test whether its output can be weaponized.
-
-### **Test**  
-- Output sanitization  
-- Schema validation for structured content  
-- Whether generated code/queries/commands are blindly executed  
-- Injection attacks (XSS, SQLi, command injection, template injection)  
-- Unsafe parsing or rendering  
-- Improper trust in AI-generated metadata or classification results  
-
-### **Critical Insight**  
-**AI-generated output is hostile user input with better grammar.**
-
-# **Layer 5: Backend & Execution Security**
-
-### **Core Question**  
-**“If the AI tells the backend to do something unsafe, does the backend stop it?”**
-
-### **Mindset**  
-Assume Layers 1–4 have failed. Now validate the resilience of the system itself.
-
-### **Test**  
-- Authorization enforced independently from AI  
-- Parameterized queries  
-- Safe command execution  
-- Workflow gating and least privilege  
-- No blind trust in AI-generated API parameters  
-- Logging and detection around AI-triggered actions  
-
-### **Critical Insight**  
-**If controlling AI output means controlling your backend, the system is fundamentally insecure.**
-
-# **Assessment Flow Summary**
+### Per-Layer Process
 
 ```
-1. Discovery      → “What am I testing?”
-2. Input Layer    → “Can I bypass the front door?”
-3. AI Layer       → “Can I control the AI?”
-4. Output Layer   → “Can AI output be weaponized?”
-5. Backend Layer  → “Is the system safe even if everything else fails?”
+1. Does this layer exist?
+   ├─ No  → Document. Should it? → Next layer
+   └─ Yes → Continue
+   
+2. Are controls present?
+   ├─ No  → Document gap → Next layer
+   └─ Yes → Attempt bypass
+   
+3. Bypass successful?
+   ├─ Yes → Document → Continue exploit to next layer
+   └─ No  → Document → Proceed as if no controls
+   
+4. → Next layer (always continue)
 ```
 
-Every layer must be tested—even when prior layers appear robust.
+---
 
-# **Success Criteria**
+## Layer 1: Input Validation & Intent Controls
 
-A successful AI-enabled system demonstrates:
+**Mindset:** "Forget the AI exists. Is this front end secure?"
 
-- Complete architectural visibility  
-- Strong input controls (Layer 2)  
-- Reasonably resilient AI behavior (Layer 3)  
-- Secure output handling (Layer 4)  
-- Hardened backend enforcement (Layer 5)  
+**Applies?** Not always — Some apps pass input directly to AI
 
-**Layer 5 must hold even if Layers 2–4 collapse.**
+### Test Areas
 
-# **The Final Check**
+| Area | Questions |
+|------|-----------|
+| **Access** | Auth in place? Role restrictions? Can I reach AI without auth? |
+| **Exposure** | Can I bypass the flow and hit backend/AI directly? Hidden endpoints? |
+| **Validation** | Rate limiting? Length/format restrictions? SQLi/XSS sanitization? |
 
-Ask yourself:
+### Quick Tests
+- [ ] Access AI features without authentication
+- [ ] Direct API calls bypassing UI
+- [ ] Traditional injection payloads
+- [ ] Rate limit bypass
+- [ ] Input length/format bypass
 
-> **“If I had total control of the AI, could I compromise the system?”**
+---
 
-If the answer is yes, the system is unsafe.  
-AISTM ensures safety through layered, independent defenses.
+## Layer 2: AI Processing & Prompt Security
 
-# **Complementary Resources**
+**Mindset:** "Assume I've reached the AI. What stops it from misbehaving?"
 
-- OWASP Top 10 for LLM Applications  
-- OWASP AI Testing Guide  
-- MITRE ATLAS  
-- NIST AI RMF  
-- Cloud provider AI security guides (OpenAI, Anthropic, AWS, Azure, Google)
+**Applies?** Always — AI always exists
 
-# **Final Note**
+### Test Areas
 
-AI security is not about preventing every exploit. It’s about ensuring the system **remains secure even when the AI fails**.  
-AISTM gives a clear, structured, repeatable way to evaluate exactly that.
+| Area | Questions |
+|------|-----------|
+| **System Prompt** | What restrictions exist? How robust? |
+| **Injection** | Can I override instructions? Indirect injection via RAG? |
+| **Escalation** | Can I exceed intended role? Access other users' data? |
+| **Leakage** | Can I extract system prompt? Security config? |
+| **Behavior** | What can I make it do that it shouldn't? |
 
+### Quick Tests
+- [ ] Direct prompt injection ("Ignore previous instructions...")
+- [ ] Indirect injection through uploaded files/RAG
+- [ ] Role/persona manipulation
+- [ ] System prompt extraction
+- [ ] Encoding/obfuscation bypasses
+- [ ] Multi-turn manipulation
+- [ ] Privilege escalation through conversation
+
+---
+
+## Layer 3: Output Validation & Processing
+
+**Mindset:** "The AI is compromised. What catches malicious output?"
+
+**Applies?** Always — Output always exists
+
+### Test Areas
+
+| Area | Questions |
+|------|-----------|
+| **Trust** | Is AI output trusted or untrusted? Blind pass-through? |
+| **Detection** | Pattern filters? Intent analysis? Anomaly detection? |
+| **Sanitization** | Parameterized? Encoded? Raw SQL/commands? |
+| **Human-in-Loop** | Approval workflows? Can AI bypass them? |
+| **Scope** | Output constrained to expected formats? |
+
+### Quick Tests
+- [ ] Craft malicious AI outputs manually
+- [ ] SQL/command injection through AI response
+- [ ] Output format manipulation
+- [ ] Bypass human approval mechanisms
+- [ ] Exceed expected output scope/format
+
+---
+
+## Layer 4: Backend & Execution Security
+
+**Mindset:** "The AI is just another user. Is the backend secure?"
+
+**Applies?** Always — Backend always exists
+
+### Test Areas
+
+| Area | Questions |
+|------|-----------|
+| **Direct Access** | Can I reach backend without AI flow? Auth on endpoints? |
+| **Input** | Raw commands or parameterized only? Backend validation? |
+| **Data** | Can I poison RAG/training data? Integrity controls? |
+| **Execution** | Least privilege? Whitelisting? Dangerous ops restricted? |
+| **Traditional** | SQLi, command injection, SSRF, IDOR, etc. |
+
+### Quick Tests
+- [ ] Direct backend API access
+- [ ] Bypass entire AI pipeline
+- [ ] Data poisoning attacks
+- [ ] Traditional pentest techniques
+- [ ] Privilege escalation
+- [ ] Infrastructure misconfigurations
+
+---
+
+## Defense-in-Depth Check
+
+After all layers tested:
+
+| Question | Finding |
+|----------|---------|
+| If Layer 1 fails alone, what happens? | |
+| If Layer 2 fails alone, what happens? | |
+| If Layer 3 fails alone, what happens? | |
+| If Layer 4 fails alone, what happens? | |
+| How many layers must fail for compromise? | |
+| Is there a single point of failure? | |
+
+**Target:** Attacker must bypass 3+ layers for meaningful impact
+
+---
+
+## Layer Applicability Matrix
+
+| App Type | L1 | L2 | L3 | L4 |
+|----------|:--:|:--:|:--:|:--:|
+| Simple Chatbot | Maybe | ✓ | ✓ | ✓ |
+| RAG Application | ✓ | ✓ | ✓ | ✓ |
+| Agentic AI | ✓ | ✓ | ✓ | ✓✓ |
+| API-only AI | Maybe | ✓ | ✓ | ✓ |
+| Third-party Integration | Limited | Limited | ✓ | ✓ |
+
+---
+
+## Common Findings by Layer
+
+### Layer 1
+- No authentication on AI endpoints
+- Rate limiting absent/bypassable
+- Direct backend access possible
+- Missing input validation
+
+### Layer 2
+- System prompt extractable
+- Prompt injection successful
+- Role boundaries bypassable
+- Indirect injection via RAG
+
+### Layer 3
+- AI output treated as trusted
+- No output sanitization
+- Raw SQL/commands passed through
+- Human approval bypassable
+
+### Layer 4
+- Backend accepts raw commands
+- No parameterized queries
+- Direct API access unprotected
+- Traditional vulns present
+
+---
+
+## Report Structure
+
+```
+1. Executive Summary
+2. Scope & Methodology (AISTM)
+3. Recon Findings
+   - Data flow diagram
+   - Input vector inventory
+   - Artifact gaps
+4. Layer-by-Layer Findings
+   - Layer 1: [Findings]
+   - Layer 2: [Findings]
+   - Layer 3: [Findings]
+   - Layer 4: [Findings]
+5. Defense-in-Depth Analysis
+6. Recommendations (by layer)
+7. Appendix: Test Cases
+```
+
+---
+
+## Quick Reminders
+
+✓ Always continue to next layer regardless of results  
+✓ Track successful exploits through all layers  
+✓ Document both successes AND controls that held  
+✓ Test sequentially AND independently  
+✓ Missing controls = finding  
+✓ Non-reproducible exploits = still valid findings  
+
+---
+
+**"Stay paranoid. Test everything. Trust nothing—especially the AI."**
