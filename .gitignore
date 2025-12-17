@@ -1,0 +1,48 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Python / tooling caches
+__pycache__/
+*.py[cod]
+*.pyo
+
+# IDE metadata
+.vscode/
+.idea/
+
+# Sensitive files - API keys, secrets
+# NEVER commit .env files - they contain API keys
+.env
+*.env
+**/.env
+
+# ML Models (too large)
+*.bin
+*.ckpt
+*.pt
+*.pth
+*.safetensors
+*.h5
+*.onnx
+*.msgpack
+
+# Python packages (should be installed via pip, not committed)
+detoxify/
+sentence-transformers/
+transformers/
+torch/
+spacy/
+
+# Internal documentation (not for GitHub)
+INTERNAL_*.md
+*_INTERNAL.md
+
+# AI Assistant Instructions (project-specific, not for GitHub)
+.github/copilot-instructions.md
+
+# Runtime files (should not be tracked)
+database.db
+lab_server.pid

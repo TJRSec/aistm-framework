@@ -1,0 +1,84 @@
+# Ubuntu-based AISTM Security Toolbox
+FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install core utilities, Python, and build tools
+RUN apt-get update && \
+	apt-get install -y python3 python3-pip python3-venv curl git wget unzip jq nmap netcat iputils-ping \
+	build-essential libssl-dev libffi-dev libxml2-dev libxslt1-dev zlib1g-dev \
+	nodejs npm \
+	whois dnsutils net-tools lynx \
+	&& rm -rf /var/lib/apt/lists/*
+
+# Install Node.js (for JS-based tools and libraries)
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+	apt-get install -y nodejs && \
+	npm install -g widdershins sanitize-html dompurify validator
+
+# Install Go (for Go-based tools)
+RUN wget https://go.dev/dl/go1.21.6.linux-amd64.tar.gz && \
+	tar -C /usr/local -xzf go1.21.6.linux-amd64.tar.gz && \
+	rm go1.21.6.linux-amd64.tar.gz
+ENV PATH="/usr/local/go/bin:$PATH"
+
+# Python security testing tools and libraries (for testers only)
+RUN pip3 install --no-cache-dir \
+	requests \
+	httpx \
+	beautifulsoup4 \
+	lxml \
+	scapy \
+	dnspython \
+	pytest \
+	sqlmap \
+	bandit \
+	truffleHog \
+	detect-secrets \
+	openai \
+	google-generativeai \
+	garak \
+	promptfoo \
+	rebuff \
+	llm-guard \
+	giskard \
+	nuclei
+
+# Install additional CLI tools (Layer 1-4, free)
+RUN apt-get update && apt-get install -y \
+	sqlmap \
+	nikto \
+	wfuzz \
+	hydra \
+	john \
+	hashcat \
+	gobuster \
+	ffuf \
+	zaproxy \
+	commix \
+	dotdotpwn \
+	trivy \
+	kube-hunter \
+	nmap \
+	netcat \
+	curl \
+	wget \
+	jq \
+	lynx \
+	whois \
+	dnsutils \
+	net-tools \
+	unzip \
+	&& rm -rf /var/lib/apt/lists/*
+
+# Download OWASP ZAP (for Layer 3/4, latest stable)
+RUN wget -O /opt/zap.zip https://github.com/zaproxy/zaproxy/releases/download/v2.14.0/ZAP_2_14_0_unix.zip && \
+	unzip /opt/zap.zip -d /opt/ && rm /opt/zap.zip
+ENV PATH="/opt/ZAP_2.14.0:$PATH"
+
+# Set up entrypoint shell
+COPY toolbox-entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+WORKDIR /root
+ENTRYPOINT ["/entrypoint.sh"]

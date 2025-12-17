@@ -1,0 +1,14 @@
+# Ignore actual model files - they're too large for git
+*.bin
+*.ckpt
+*.pt
+*.pth
+*.safetensors
+*.h5
+*.pkl
+*.pickle
+*.msgpack
+*.onnx
+
+# But keep this README
+!README.md

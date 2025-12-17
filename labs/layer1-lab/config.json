@@ -1,0 +1,42 @@
+{
+  "provider": "anthropic",
+  "providers": {
+    "anthropic": {
+      "model": "claude-sonnet-4-20250514",
+      "temperature": 0.7,
+      "max_tokens": 2048
+    },
+    "gemini": {
+      "model": "gemini-2.0-flash-exp",
+      "temperature": 0.7,
+      "max_tokens": 2048
+    },
+    "openai": {
+      "model": "gpt-4o",
+      "temperature": 0.7,
+      "max_tokens": 2048
+    }
+  },
+  "server": {
+    "host": "127.0.0.1",
+    "port": 8847
+  },
+  "controls": {
+    "intent_classifier": false,
+    "pii_detection": true,
+    "embedding_similarity": false,
+    "content_safety": false,
+    "length_limit": false,
+    "html_sanitization": true,
+    "unicode_normalization": true,
+    "output_sanitization": false,
+    "regex_injection_detection": true,
+    "rate_limiting": false,
+    "length_validator": false,
+    "mcp_security": false,
+    "sql_validator": false,
+    "command_validator": false,
+    "path_validator": false,
+    "api_validator": false
+  }
+}
